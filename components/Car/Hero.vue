@@ -9,7 +9,7 @@
     <div class="absolute inset-0 z-10 flex justify-center items-center px-4">
       <div class="text-center w-full max-w-3xl">
         <!-- Heading -->
-        <h1
+        <h1 
           class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif mb-6 sm:mb-10 text-white"
         >
           Find your drive

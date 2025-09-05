@@ -2,5 +2,7 @@
 import { NuxtPage } from '#components';
 </script>
 <template>
-    <NuxtPage/>
+    <div>
+        <NuxtPage/>
+    </div>
 </template>
