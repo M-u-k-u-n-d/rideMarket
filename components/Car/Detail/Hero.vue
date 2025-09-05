@@ -1,3 +1,8 @@
+<script setup>
+
+const {formatCurrency} = useUtilities();
+</script>
+
 <template>
   <!-- CAR HERO -->
   <div class="mt-10">
@@ -23,7 +28,7 @@
 
       <!-- Right Side (Price) -->
       <div class="mt-4 sm:mt-0">
-        <p class="text-2xl sm:text-3xl font-semibold text-blue-600">$25,555</p>
+        <p class="text-2xl sm:text-3xl font-semibold text-blue-600">{{ formatCurrency(73821, 'USD', 'en-US') }}</p>
       </div>
     </div>
     <!-- CAR HERO -->

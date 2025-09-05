@@ -1,3 +1,8 @@
+<script setup>
+const {formatCurrency} = useUtilities();
+</script>
+
+
 <template>
   <!-- CAR CARD -->
   <div
@@ -35,7 +40,7 @@
         <h2
           class="mt-4 sm:mt-auto text-lg sm:text-xl font-bold text-blue-700"
         >
-          $39,555
+          {{ formatCurrency(1284000, 'INR', 'en-IN') }}
         </h2>
       </div>
     </div>
