@@ -1,46 +1,49 @@
 <script setup>
-const {formatCurrency} = useUtilities();
-</script>
+import { useUtilities } from '@/composables/useUtilities'
 
+// get utility function
+const { formatCurrency } = useUtilities()
+
+// accept props from parent
+const props = defineProps({
+  car: {
+    type: Object,
+    required: true
+  }
+})
+</script>
 
 <template>
   <!-- CAR CARD -->
   <div
     class="shadow border w-full overflow-hidden mb-5 cursor-pointer h-auto sm:h-[220px] rounded-xl bg-white"
+    @click="navigateTo(`/car/${car.name}-${car.id}`)"
   >
     <div class="flex flex-col sm:flex-row h-full">
       <!-- Image -->
       <img
-        src="https://carwow-uk-wp-3.imgix.net/Volvo-XC40-white-scaled.jpg"
-        alt="Volvo XC40"
-        class="w-full sm:w-[280px] h-[200px] sm:h-full object-full"
+        :src=car.url
+        :alt="car.name"
+        class="w-full sm:w-[280px] h-[200px] sm:h-full object-cover"
       />
 
       <!-- Content -->
       <div class="p-4 flex flex-col flex-1">
         <div class="flex-1">
           <!-- Heading -->
-          <h1
-            class="text-xl sm:text-2xl font-semibold text-gray-900 leading-snug mb-2 line-clamp-2"
-          >
-            Volvo XC40
+          <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 leading-snug mb-2 line-clamp-2">
+            {{ car.name }}
           </h1>
 
           <!-- Paragraph -->
-          <p
-            class="text-gray-600 text-sm sm:text-base leading-relaxed line-clamp-3"
-          >
-            A premium compact SUV offering modern design, advanced safety
-            features, and an efficient driving experience that fits both city
-            and highway needs.
+          <p class="text-gray-600 text-sm sm:text-base leading-relaxed line-clamp-3">
+            {{ car.description }}
           </p>
         </div>
 
         <!-- Price -->
-        <h2
-          class="mt-4 sm:mt-auto text-lg sm:text-xl font-bold text-blue-700"
-        >
-          {{ formatCurrency(1284000, 'INR', 'en-IN') }}
+        <h2 class="mt-4 sm:mt-auto text-lg sm:text-xl font-bold text-blue-700">
+          {{ formatCurrency(car.price, 'USD', 'en-IN') }}
         </h2>
       </div>
     </div>

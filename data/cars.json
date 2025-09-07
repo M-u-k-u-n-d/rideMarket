@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Range Rover Sport",
+    "price": 84777,
+    "url": "https://www.carhelpcanada.com/wp-content/uploads/2019/12/2020-Range-Rover-Evoque-2.jpg",
+    "seats": 5,
+    "miles": "14,666",
+    "features": [
+      "No Accidents",
+      "Low KM",
+      "Vehicle Detailed",
+      "Leather Interior"
+    ],
+    "description": "The Range Rover Sport combines luxury and performance with a spacious interior, advanced off-road capability, and a refined driving experience."
+  },
+  {
+    "id": 2,
+    "name": "Rolls Royce Ghost",
+    "price": 455000,
+    "url": "https://robbreport.com/wp-content/uploads/2021/03/1-5.jpg?w=1000",
+    "seats": 5,
+    "miles": "53,666",
+    "features": [
+      "No Accidents",
+      "Low KM",
+      "Vehicle Detailed",
+      "Leather Interior"
+    ],
+    "description": "The Rolls Royce Ghost offers unmatched luxury with handcrafted interiors, a powerful V12 engine, and a serene driving experience designed for elegance."
+  },
+  {
+    "id": 4,
+    "name": "Porsche Taycan",
+    "price": 180434,
+    "url": "https://www.topgear.com/sites/default/files/cars-car/carousel/2021/02/pcgb20_1441_fine.jpg",
+    "seats": 5,
+    "miles": "0",
+    "features": [
+      "No Accidents",
+      "Low KM",
+      "Vehicle Detailed",
+      "Leather Interior"
+    ],
+    "description": "The Porsche Taycan is a high-performance electric sports car delivering instant acceleration, advanced technology, and iconic Porsche design."
+  }
+]

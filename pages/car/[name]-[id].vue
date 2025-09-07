@@ -8,15 +8,25 @@ definePageMeta({
     layout: 'custom'
 })
 
+const { cars } = useCars()
+
+// find the car by id
+const car = computed(() => {
+  return cars.find(c => c.id === Number(route.params.id))
+}).value;
+
 </script>
 
 <template>
-  <div>
+  <div v-if="car">
     <!-- CAR DETAIL PAGE -->
-      <CarDetailHero />
-      <CarDetailAttributes />
-      <CarDetailDescription />
+      <CarDetailHero :car="car"/>
+      <CarDetailAttributes :car="car" />
+      <CarDetailDescription :car="car" />
       <CarDetailContact />
     <!-- CAR DETAIL PAGE -->
+  </div>
+  <div v-else>
+    <CarNotFound />
   </div>
 </template>
