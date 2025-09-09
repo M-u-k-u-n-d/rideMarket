@@ -9,7 +9,26 @@ const updateModal = (type) => {
   modal.value[type] = !modal.value[type];
 };
 const city = ref();
+const priceRange = ref({
+  min: null,
+  max: null,
+});
+const priceRangeText = computed(() => {
+  const minPrice = route.query.minPrice;
+  const maxPrice = route.query.maxPrice;
+  if (minPrice && maxPrice) {
+    return `$${minPrice} - $${maxPrice}`;
+  } else if (minPrice) {
+    return `>= $${minPrice}`;
+  } else if (maxPrice) {
+    return `<= $${maxPrice}`;
+  } else {
+    return "Any";
+  }
+});
 const route = useRoute();
+const router = useRouter();
+const { makes } = useCars();
 const onChangeLocation = () => {
   if (!city.value) return;
   if (!isNaN(parseInt(city.value))) {
@@ -22,6 +41,27 @@ const onChangeLocation = () => {
   navigateTo(`/city/${city.value}/car/${route.params.make}`);
   city.value = "";
 };
+
+const onChangeMake = (make) => {
+  updateModal("make");
+  navigateTo(`/city/${route.params.city}/car/${make}`);
+};
+const onChangePrice = () => {
+  updateModal("price");
+
+  if(priceRange.value.min && priceRange.value.max) {
+    if(priceRange.value.min > priceRange.value.max) {
+      return;
+    }
+    router.push({
+      query: {
+        minPrice: priceRange.value.min,
+        maxPrice: priceRange.value.max,
+      },
+    });
+  }
+
+}
 </script>
 
 <template>
@@ -69,13 +109,52 @@ const onChangeLocation = () => {
     <!-- Make -->
     <div class="p-5 flex justify-between items-center border-b">
       <h3 class="font-medium text-gray-700">Make</h3>
-      <h3 class="text-blue-500 capitalize font-semibold">Toyota</h3>
+      <h3
+        class="text-blue-500 capitalize font-semibold cursor-pointer"
+        @click="updateModal('make')"
+      >
+        {{ route.params.make || "Any" }}
+      </h3>
+      <div
+        class="absolute z-30 border shadow left-56 p-5 top-1 -m-1 w-[600px] flex justify-between flex-wrap bg-white cursor-pointer"
+        v-if="modal.make"
+      >
+        <h4
+          v-for="make in makes"
+          :key="make"
+          class="w-1/3 hover:bg-gray-100 p-1 rounded text-center"
+          @click="onChangeMake(make)"
+        >
+          {{ make }}
+        </h4>
+      </div>
     </div>
 
     <!-- Price -->
     <div class="p-5 flex justify-between items-center border-b">
       <h3 class="font-medium text-gray-700">Price</h3>
-      <h3 class="text-blue-500 capitalize font-semibold">—</h3>
+      <h3 class="text-blue-400 capitalize" @click="updateModal('price')">{{priceRangeText}}</h3>
+      <div
+        class="absolute z-30 border bg-white left-56 p-5 top-1 -m-1"
+        v-if="modal.price"
+      >
+        <input
+          class="border p-1 rounded mb-2"
+          type="number"
+          placeholder="Min"
+          v-model="priceRange.min"
+        />
+        <input
+          class="border p-1 rounded"
+          type="number"
+          placeholder="Max"
+          v-model="priceRange.max"
+        />
+        <button class="bg-blue-400 w-full mt-2 rounded text-white p-1"
+        @click="onChangePrice">
+          Apply
+        </button>
+      </div>
     </div>
   </div>
   <!-- CAR SIDE BAR -->

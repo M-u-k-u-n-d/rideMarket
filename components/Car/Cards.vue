@@ -1,11 +1,25 @@
 <script setup>
 const { cars } = useCars();
+
+const favourite = ref(useLocalStorage('favourite', {}));
+const handleFavourite = (id) => {
+  if (id in favourite.value) {
+    delete favourite.value[id];
+  } else {
+    favourite.value[id] =true;
+  }
+}; 
+
+
 </script>
 
 <template>
    <!-- CAR CARDS -->
+    <ClientOnly>
     <div class="w-full">
-      <CarCard v-for="car in cars" :key="car.id" :car="car"/>
+      <CarCard v-for="car in cars" :key="car.id" :car="car" @favor="handleFavourite"
+      :favored="car.id in favourite"/>
     </div>
+    </ClientOnly>
     <!-- CAR CARDS -->
 </template>
