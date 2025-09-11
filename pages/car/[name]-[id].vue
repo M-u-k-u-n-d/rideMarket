@@ -8,13 +8,7 @@ definePageMeta({
     layout: 'custom'
 })
 
-const { cars } = useCars()
-
-// find the car by id
-const car = computed(() => {
-  return cars.find(c => c.id === Number(route.params.id))
-}).value;
-
+const { data: car } = await useFetchCar(route.params.id);
 </script>
 
 <template>
