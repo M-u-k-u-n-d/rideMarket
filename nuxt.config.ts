@@ -2,10 +2,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-09-10',
 
   modules: [
-    "@nuxtjs/tailwindcss",
-    "@nuxt/image",
+    "@nuxtjs/tailwindcss", 
+    "@nuxt/image",  // ✅ keep only this
     "@vueuse/nuxt",
-    "@nuxtjs/supabase",
+    "@nuxtjs/supabase"
   ],
 
   runtimeConfig: {
@@ -15,7 +15,18 @@ export default defineNuxtConfig({
     },
   },
 
-  supabase: {
-    redirect: false, // don’t auto-redirect, we’ll handle manually
+  image: {
+    format: ['webp', 'avif'],
+    screens: {
+      sm: 320,
+      md: 640,
+      lg: 1024,
+      xl: 1280,
+      '2xl': 1536,
+    },
   },
-})
+
+  supabase: {
+    redirect: false,
+  },
+});

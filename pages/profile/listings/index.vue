@@ -1,30 +1,33 @@
 <script setup>
+import Car from "~/pages/city/[city]/car.vue";
+
 definePageMeta({
   layout: "custom",
- 
 });
+const user = useSupabaseUser();
+// const { listings } = useCars();
+const {data:listings , refresh} = await useFetch(`/api/car/listings/user/${user.value.id}`);
 
-const { listings } = useCars();
+const handleDelete = async (id) => {
+  await $fetch(`/api/car/listings/${id}`, {
+    method: "DELETE",
+  });
+  listings.value = listings.value.filter((listing) => listing.id !== id);
+};
 </script>
 
 <template>
   <div>
     <div class="flex justify-between mt-24 items-center">
-      <h1 class="text-6xl">My Listings</h1>
+      <h1
+        class="text-4xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-6"
+      >
+        My Listings
+      </h1>
+
       <NuxtLink
         to="/profile/listings/create"
-        class="
-          w-9
-          h-9
-          bg-blue-400
-          flex
-          justify-center
-          items-center
-          rounded-full
-          text-white
-          font-bold
-          cursor-pointer
-        "
+        class="w-9 h-9 bg-blue-400 flex justify-center items-center rounded-full text-white font-bold cursor-pointer"
         >+</NuxtLink
       >
     </div>
@@ -33,6 +36,7 @@ const { listings } = useCars();
         v-for="listing in listings"
         :key="listing.id"
         :listing="listing"
+        @deleteClick="handleDelete"
       />
     </div>
   </div>

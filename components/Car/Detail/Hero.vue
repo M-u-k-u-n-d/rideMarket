@@ -1,4 +1,5 @@
 <script setup>
+import { NuxtImg } from '#components'
 import { useUtilities } from '@/composables/useUtilities'
 
 const { formatCurrency } = useUtilities()
@@ -16,8 +17,8 @@ console.log("Car in Hero => ", car)
 
 <template>
   <div class="mt-10">
-    <img
-      :src="car.url"
+    <NuxtImg
+      :src="car.image"
       class="w-full rounded-xl shadow-md"
       :alt="car.name"
     />
@@ -26,7 +27,7 @@ console.log("Car in Hero => ", car)
       <div>
         <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">{{ car.name }}</h1>
         <div class="flex flex-wrap text-gray-500 text-lg mt-2 gap-x-4">
-          <p>{{ car.seats }} seats</p>
+          <p>{{ car.numberOfSeats }} seats</p>
           <p>|</p>
           <p>{{ car.miles }} miles</p>
         </div>

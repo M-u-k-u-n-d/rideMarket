@@ -13,6 +13,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits("favor");
+console.log("this is car props", props.car);
+
 
 const { formatCurrency } = useUtilities();
 </script>
@@ -35,7 +37,7 @@ const { formatCurrency } = useUtilities();
     >
       <!-- Image -->
       <NuxtImg
-        :src="car.url"
+        :src="car.image"
         :alt="car.name"
         class="w-full sm:w-[280px] h-[200px] sm:h-full object-cover"
       />

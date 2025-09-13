@@ -10,11 +10,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/image": "^1.11.0",
+    "@nuxt/image": "^1.0.0",
     "@nuxtjs/supabase": "^1.6.2",
+    "@prisma/client": "^6.16.1",
     "@vueuse/core": "^13.9.0",
     "@vueuse/nuxt": "^13.9.0",
-    "nuxt": "^4.0.3",
+    "joi": "^18.0.1",
+    "nuxt": "^4.1.1",
+    "prisma": "^6.16.1",
     "vue": "^3.5.20",
     "vue-router": "^4.5.1"
   },

@@ -1,16 +1,14 @@
 <script setup>
-const image = useState("carImage", () => {
-  return {
-    preview: null,
-    image: null,
-  };
-});
+const image = useState("carImage", () => ({
+  preview: null,
+  image: null,
+}));
 
 const emits = defineEmits(["changeInput"]);
 
 const onImageUpload = (event) => {
   const input = event.target;
-  if (input.files) {
+  if (input.files?.length) {
     const reader = new FileReader();
     reader.onload = (e) => {
       image.value.preview = e.target.result;
@@ -20,26 +18,32 @@ const onImageUpload = (event) => {
     emits("changeInput", input.files[0], "image");
   }
 };
+
 </script>
 
 <template>
-  <div class="col-md-5 offset-md-1 mt-2 w-[100%]">
-    <label for="" class="text-cyan-500 mb-1 text-sm">Image*</label>
-    <form class="mt-2">
-      <div class="form-group">
-        <div class="relative">
-          <input
-            type="file"
-            accept="image/*"
-            class="opacity-0 absolute cursor-pointer"
-            @change="onImageUpload"
-          />
-          <span class="cursor-pointer">Browse File</span>
-        </div>
-        <div class="border p-2 mt-3 w-56" v-if="image.preview">
-          <img :src="image.preview" class="img-fluid" />
-        </div>
-      </div>
-    </form>
+  <div class="mt-4 w-full max-w-sm space-y-3">
+    <label class="block text-sm font-medium text-cyan-600">
+      Upload Image*
+    </label>
+
+    <!-- File Input Styled -->
+    <label
+      class="flex w-full cursor-pointer items-center justify-center rounded-2xl border-2 border-dashed border-cyan-400 bg-cyan-50 px-4 py-6 text-sm font-medium text-cyan-600 hover:bg-cyan-100 transition"
+    >
+      <input type="file" accept="image/*" class="hidden" @change="onImageUpload" />
+      Click to browse file
+    </label>
+
+    <!-- Preview -->
+    <div
+      v-if="image.preview"
+      class="rounded-2xl border border-gray-200 bg-white shadow-md p-2 w-48"
+    >
+      <img
+        :src="image.preview"
+        class="w-full h-auto rounded-xl object-cover"
+      />
+    </div>
   </div>
 </template>
