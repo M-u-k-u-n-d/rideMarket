@@ -1,6 +1,8 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-09-10',
-
+  nitro: {
+    preset: 'vercel'
+  },
   modules: [
     "@nuxtjs/tailwindcss", 
     "@nuxt/image",  // ✅ keep only this
