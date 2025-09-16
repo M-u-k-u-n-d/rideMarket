@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Car {
-  id            Int       @id @default(autoincrement())
+  id            Int       @id(map: "Car_pkey") @default(autoincrement())
   name          String
   numberOfSeats Int
   miles         Int
@@ -22,14 +22,18 @@ model Car {
   year          Int
   listerId      String
   messages      Message[]
+
+  @@map("car")
 }
 
 model Message {
-  id        Int    @id @default(autoincrement())
+  id        Int    @id(map: "Message_pkey") @default(autoincrement())
   name      String
   email     String
   phone     String
   message   String
   listingId Int
-  listing   Car    @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listing   Car    @relation(fields: [listingId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "message_listingid_fkey")
+
+  @@map("message")
 }

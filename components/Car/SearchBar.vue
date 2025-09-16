@@ -20,6 +20,7 @@
             :class="cityError ? 'border-2 border-red-500 rounded-l-full' : ''"
             placeholder="Search by city..."
             v-model="city"
+            @keydown.enter="handleSearch" 
           />
           <button
             class="bg-sky-500 px-4 sm:px-6 md:px-8 lg:px-10 text-white text-sm sm:text-base md:text-lg"
