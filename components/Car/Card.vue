@@ -62,7 +62,7 @@ const { formatCurrency } = useUtilities();
 
         <!-- Price -->
         <h2 class="mt-4 sm:mt-auto text-lg sm:text-xl font-bold text-blue-700">
-          {{ formatCurrency(car.price, "USD", "en-IN") }}
+          {{ formatCurrency(car.price, "INR", "en-IN") }}
         </h2>
       </div>
     </div>

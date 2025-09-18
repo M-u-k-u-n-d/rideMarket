@@ -35,7 +35,7 @@ console.log("Car in Hero => ", car)
 
       <div class="mt-4 sm:mt-0">
         <p class="text-2xl sm:text-3xl font-semibold text-blue-600">
-          {{ formatCurrency(car.price, 'USD', 'en-US') }}
+          {{ formatCurrency(car.price, 'INR', 'en-IN') }}
         </p>
       </div>
     </div>
