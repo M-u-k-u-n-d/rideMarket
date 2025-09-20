@@ -1,4 +1,5 @@
-/city/[city]/[car]
 
-create a table  column name location ,make and price.  
-
+- Implement Filters 
+- Implement favourites functionality
+- Implement Pagination
+- Implement Role Based Authentication
