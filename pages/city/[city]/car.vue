@@ -19,14 +19,14 @@ const goToCars = () => {
 <template>
   <!-- CARS PAGE -->
   <NuxtErrorBoundary>
-    <div class="mt-0 flex flex-col lg:flex-row gap-6">
-      <!-- Sidebar -->
-      <aside class="w-full lg:basis-1/4 lg:max-w-xs shrink-0">
+    <div class="mt-0 flex flex-col gap-6">
+      <!-- Sidebar Always on Top -->
+      <aside class="w-full">
         <CarSidebar />
       </aside>
 
-      <!-- Car Cards -->
-      <main class="w-full lg:flex-1 min-w-0">
+      <!-- Car Cards Below Sidebar -->
+      <main class="w-full min-w-0">
         <NuxtPage />
       </main>
     </div>
@@ -34,8 +34,8 @@ const goToCars = () => {
     <!-- Error fallback -->
     <template #error="{ error }">
       <div class="text-center py-20">
-        <h1 class="text-4xl font-bold mb-4">Error {{ error.statusCode }}</h1>
-        <p class="text-lg text-gray-600">{{ error.statusMessage }}</p>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">Error {{ error.statusCode }}</h1>
+        <p class="text-base sm:text-lg text-gray-600">{{ error.statusMessage }}</p>
 
         <!-- Fixed button -->
         <button

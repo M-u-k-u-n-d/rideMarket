@@ -14,8 +14,7 @@ const handleFavourite = (id) => {
     favourite.value[id] =true;
   }
 }; 
-
-
+console.log("Here is the Car => ",props.cars)
 </script>
 
 <template>

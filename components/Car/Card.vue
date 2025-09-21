@@ -13,8 +13,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits("favor");
-console.log("this is car props", props.car);
-
 
 const { formatCurrency } = useUtilities();
 </script>
@@ -23,14 +21,6 @@ const { formatCurrency } = useUtilities();
   <div
     class="relative shadow border w-full overflow-hidden mb-5 cursor-pointer h-auto sm:h-[220px] rounded-xl bg-white"
   >
-    <!-- Heart Icon -->
-    <img
-      class="absolute top-2 right-2 w-5 sm:w-6 md:w-7 z-20"
-      :src="props.favored ? heartFilled : heartOutline"
-      alt="Favorite"
-      @click="emit('favor', car.id)"
-    />
-
     <div
       class="flex flex-col sm:flex-row h-full"
       @click="navigateTo(`/car/${car.name}-${car.id}`)"
@@ -39,7 +29,7 @@ const { formatCurrency } = useUtilities();
       <NuxtImg
         :src="car.image"
         :alt="car.name"
-        class="w-full sm:w-[280px] h-[200px] sm:h-full object-cover"
+        class="w-full sm:w-[280px] h-[200px] sm:h-full object-contain"
       />
 
       <!-- Content -->

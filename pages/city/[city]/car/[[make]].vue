@@ -20,7 +20,6 @@ watch(
     <CarCards v-if="cars.length" :cars="cars" />
     <div
       v-else
-      class="flex flex-col items-center justify-center p-10 bg-gray-50 border border-dashed border-gray-300 rounded-2xl shadow-sm text-center max-w-md mx-auto"
     >
       <AllCar/>
     </div>
