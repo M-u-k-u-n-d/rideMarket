@@ -1,9 +1,17 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { useFetchAllCars } from "@/composables/useFetchAllCars";
+import { onMounted, watch } from "vue";
 
 const route = useRoute();
-const { cars, loading, errorMsg } = useFetchAllCars();
+const currentPage = ref(parseInt(route.query.page) || 1);
+const limit = 6;
+
+const { cars, loading, errorMsg, fetchCars, pagination } = useFetchAllCars(currentPage.value, limit);
+
+onMounted(() => {
+  fetchCars(currentPage.value, limit);
+});
 
 // Normalize city for comparison
 const selectedCity = route.params.city?.toLowerCase() || "";
@@ -13,6 +21,12 @@ const noCarsForCity = computed(() => {
   if (!selectedCity) return false;
   return !cars.value.some(c => c.city.toLowerCase() === selectedCity);
 });
+
+const handlePageChange = async (page) => {
+  currentPage.value = page;
+  await fetchCars(page, limit);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 </script>
 
 <template>
@@ -35,6 +49,15 @@ const noCarsForCity = computed(() => {
     <!-- Cars list -->
     <CarCards v-if="cars.length" :cars="cars" />
 
+    <!-- Pagination -->
+    <Pagination 
+      v-if="pagination.totalPages > 1"
+      :current-page="pagination.page"
+      :total-pages="pagination.totalPages"
+      :total="pagination.total"
+      @page-change="handlePageChange"
+    />
+
     <!-- Loading -->
     <div v-else-if="loading" class="text-sm text-slate-600 p-4 text-center">
       Loading...
@@ -51,4 +74,3 @@ const noCarsForCity = computed(() => {
     </p>
   </div>
 </template>
-

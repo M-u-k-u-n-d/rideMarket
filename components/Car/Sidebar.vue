@@ -5,7 +5,7 @@ import { useFetchAllCars } from "@/composables/useFetchAllCars";
 
 const route = useRoute();
 const router = useRouter();
-const { cities, makesByCity } = useFetchAllCars();
+const { cities, makesByCity, fetchCars } = useFetchAllCars();
 
 const modal = ref({ make: false, location: false });
 const city = ref(route.params.city || "");
@@ -28,12 +28,18 @@ const onChangeLocation = () => {
   modal.value.location = false;
 
   // Reset Make to "Any" when location changes
-  router.push({ params: { city: city.value, make: "" } });
+  const targetCity = city.value || route.params.city;
+  navigateTo(`/city/${targetCity}/car`);
 };
 
 const onChangeMake = (make) => {
   modal.value.make = false;
-  router.push({ params: { city: city.value, make } });
+  const targetCity = city.value || route.params.city;
+  if (make) {
+    navigateTo(`/city/${targetCity}/car/${make}`);
+  } else {
+    navigateTo(`/city/${targetCity}/car`);
+  }
 };
 
 // Click outside handler
@@ -46,7 +52,18 @@ const handleClickOutside = (event) => {
   }
 };
 
-onMounted(() => document.addEventListener("mousedown", handleClickOutside));
+// Watch route changes to update local city ref
+watch(
+  () => route.params.city,
+  (newCity) => {
+    city.value = newCity || "";
+  }
+);
+
+onMounted(async () => {
+  await fetchCars(1, 1000);
+  document.addEventListener("mousedown", handleClickOutside);
+});
 onBeforeUnmount(() => document.removeEventListener("mousedown", handleClickOutside));
 </script>
 

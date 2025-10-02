@@ -1,32 +1,51 @@
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { useSupabaseClient } from "#imports";
 
-export function useFetchAllCars() {
+export function useFetchAllCars(page = 1, limit = 6) {
   const client = useSupabaseClient();
   const cars = ref([]);
   const loading = ref(false);
   const errorMsg = ref("");
+  const pagination = ref({
+    page: 1,
+    limit: 6,
+    total: 0,
+    totalPages: 0
+  });
 
-  const fetchCars = async () => {
+  const fetchCars = async (currentPage = page, currentLimit = limit) => {
     loading.value = true;
-    const { data, error } = await client.from("car").select("*");
+    
+    const from = (currentPage - 1) * currentLimit;
+    const to = from + currentLimit - 1;
+    
+    const [dataResult, countResult] = await Promise.all([
+      client.from("car").select("*").range(from, to),
+      client.from("car").select("*", { count: 'exact', head: true })
+    ]);
+    
     loading.value = false;
 
-    if (error) {
+    if (dataResult.error) {
       errorMsg.value = "Failed to load car data";
-      console.error(error);
+      console.error(dataResult.error);
       return;
     }
 
     // ✅ Normalize city and make
-    cars.value = (data || []).map((c) => ({
+    cars.value = (dataResult.data || []).map((c) => ({
       ...c,
       city: titleCase(c.city),
       make: titleCase(c.make),
     }));
+    
+    pagination.value = {
+      page: currentPage,
+      limit: currentLimit,
+      total: countResult.count || 0,
+      totalPages: Math.ceil((countResult.count || 0) / currentLimit)
+    };
   };
-
-  onMounted(fetchCars);
 
   // ✅ Get unique cities (case-insensitive)
   const cities = computed(() => {
@@ -57,5 +76,5 @@ export function useFetchAllCars() {
       .join(" ");
   }
 
-  return { cars, loading, errorMsg, fetchCars, cities, makesByCity };
+  return { cars, loading, errorMsg, fetchCars, cities, makesByCity, pagination };
 }

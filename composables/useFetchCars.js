@@ -1,6 +1,6 @@
-export default async function (city,filters) {
-    const {data,error,refresh} = await useFetch(`/api/cars/${city}`, {
-        params: {...filters}, 
+export default async function (city, filters, page = 1, limit = 10) {
+    const {data, error, refresh} = await useFetch(`/api/cars/${city}`, {
+        params: {...filters, page, limit}, 
     });
 
     if(error.value) {
@@ -10,5 +10,5 @@ export default async function (city,filters) {
         })
     }
 
-    return {data,refresh};
+    return {data, refresh};
 }
